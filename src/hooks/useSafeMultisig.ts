@@ -1,0 +1,233 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { MultisigTransaction, MultisigTxDetails } from "@lifi/sdk";
+import { useAccount } from "@lifi/wallet-management";
+import type { Connector } from "wagmi";
+import type { GatewayTransactionDetails } from "@safe-global/safe-apps-sdk";
+import { TransactionStatus } from "@safe-global/safe-apps-sdk";
+import { useCallback, useEffect, useState } from "react";
+
+const getIsSafeConnector = async (connector?: Connector): Promise<boolean> => {
+  let isSafeConnector = connector?.id === "safe";
+  if (isSafeConnector) {
+    return isSafeConnector;
+  }
+  const isWalletConnect = connector?.id === "walletConnect";
+  if (!isWalletConnect) {
+    return false;
+  }
+  const provider = (await connector?.getProvider()) as any;
+  isSafeConnector = provider?.signer?.session?.peer?.metadata?.name
+    ?.toLowerCase?.()
+    ?.includes?.("safe");
+  return isSafeConnector;
+};
+
+export const useSafeMultisig = () => {
+  const { account } = useAccount();
+  const [isSafeConnector, setIsSafeConnector] = useState(false);
+
+  // const checkMultisigEnvironment = async () => {
+  //   // in Multisig env, window.parent is not equal to window
+  //   const isIframeEnvironment = window.parent !== window;
+
+  //   if (!isIframeEnvironment) {
+  //     return false;
+  //   }
+
+  //   const sdk = new SafeAppsSDK();
+  //   const accountInfo = await Promise.race([
+  //     sdk.safe.getInfo(),
+  //     new Promise<undefined>((resolve) => setTimeout(resolve, 200)),
+  //   ]);
+
+  //   return !!accountInfo?.safeAddress;
+  // };
+
+  const getMultisigTransactionDetails = useCallback(
+    async (
+      txHash: string,
+      chainId: number,
+      updateIntermediateStatus?: () => void
+    ): Promise<MultisigTxDetails> => {
+      const safeAppProvider = await (account?.connector as any).getProvider();
+      const safeProviderSDK = safeAppProvider.sdk;
+
+      const safeTransactionDetails: GatewayTransactionDetails =
+        await safeProviderSDK.txs.getBySafeTxHash(txHash);
+
+      const safeTxHash = safeTransactionDetails.txId;
+
+      const safeApiTransactionResponse = await fetch(
+        `https://safe-client.safe.global/v1/chains/${chainId}/transactions/${safeTxHash}`
+      );
+
+      const safeApiTransactionDetails = await safeApiTransactionResponse.json();
+
+      const nonTerminalStatus = [
+        TransactionStatus.SUCCESS,
+        TransactionStatus.CANCELLED,
+        TransactionStatus.FAILED,
+      ];
+
+      const isSafeStatusPending =
+        !nonTerminalStatus.includes(safeTransactionDetails.txStatus) &&
+        !nonTerminalStatus.includes(safeApiTransactionDetails.txStatus);
+
+      const isAwaitingExecution = [
+        safeTransactionDetails.txStatus,
+        safeApiTransactionDetails.txStatus,
+      ].includes(TransactionStatus.AWAITING_EXECUTION);
+
+      if (isAwaitingExecution) {
+        updateIntermediateStatus?.();
+      }
+
+      if (isSafeStatusPending) {
+        await new Promise((resolve) => {
+          setTimeout(resolve, 5000);
+        });
+
+        return await getMultisigTransactionDetails(
+          txHash,
+          chainId,
+          updateIntermediateStatus
+        );
+      }
+
+      if (
+        [
+          safeTransactionDetails.txStatus,
+          safeApiTransactionDetails.txStatus,
+        ].includes(TransactionStatus.SUCCESS)
+      ) {
+        return {
+          status: "DONE",
+          txHash: `0x${safeTransactionDetails.txHash?.slice(2)}`,
+        };
+      }
+
+      if (
+        [
+          safeTransactionDetails.txStatus,
+          safeApiTransactionDetails.txStatus,
+        ].includes(TransactionStatus.FAILED)
+      ) {
+        return {
+          status: "FAILED",
+          txHash: `0x${safeTransactionDetails.txHash?.slice(2)}`,
+        };
+      }
+
+      if (
+        [
+          safeTransactionDetails.txStatus,
+          safeApiTransactionDetails.txStatus,
+        ].includes(TransactionStatus.CANCELLED)
+      ) {
+        return {
+          status: "CANCELLED",
+          txHash: `0x${safeTransactionDetails.txHash?.slice(2)}`,
+        };
+      }
+
+      if (isSafeStatusPending) {
+        return {
+          status: "PENDING",
+          txHash: `0x${safeTransactionDetails.txHash?.slice(2)}`,
+        };
+      }
+
+      return {
+        status: "PENDING",
+        txHash: `0x${safeTransactionDetails.txHash?.slice(2)}`,
+      };
+    },
+    [account?.connector]
+  );
+
+  const sendBatchTransaction = useCallback(
+    async (
+      batchTransactions: MultisigTransaction[]
+    ): Promise<`0x${string}`> => {
+      const safeAppProvider = await (account?.connector as any).getProvider();
+      const safeProviderSDK = safeAppProvider.sdk;
+
+      try {
+        const { safeTxHash } = await safeProviderSDK.txs.send({
+          txs: batchTransactions,
+        });
+
+        return `0x${safeTxHash.slice(2)}`;
+      } catch (error) {
+        throw new Error(error as string);
+      }
+    },
+    [account?.connector]
+  );
+
+  // const getMultisigWidgetConfig = (): Partial<{
+  //   multisigWidget: MultisigWidgetConfig;
+  //   multisigSdkConfig: MultisigConfig;
+  // }> => {
+  //   const multisigConfig = {
+  //     isMultisigWalletClient: isSafeConnector,
+  //     getMultisigTransactionDetails: handleMultiSigTransactionDetails,
+  //     shouldBatchTransactions: isSafeConnector,
+  //     sendBatchTransaction: handleSendingBatchTransaction,
+  //   };
+
+  //   const destinationChain = useMultisigStore.getState().destinationChain;
+
+  //   if (isSafeConnector) {
+  //     const shouldRequireToAddress = account?.chainId !== destinationChain;
+
+  //     return {
+  //       multisigWidget: {
+  //         fromChain: account?.chainId,
+  //         requiredUI: shouldRequireToAddress ? ["toAddress"] : [],
+  //       },
+  //       multisigSdkConfig: {
+  //         ...multisigConfig,
+  //       },
+  //     };
+  //   }
+
+  //   return {};
+  // };
+
+  // const shouldOpenMultisigSignatureModal = (route: Route) => {
+  //   const isRouteDone = route.steps.every(
+  //     (step) => (step as any).execution?.status === "DONE"
+  //   );
+
+  //   const isRouteFailed = route.steps.some(
+  //     (step) => (step as any).execution?.status === "FAILED"
+  //   );
+
+  //   const multisigRouteStarted = route.steps.some((step) =>
+  //     (step as any).execution?.process.find(
+  //       (process: Process) =>
+  //         !!process.multisigTxHash && process.status === "ACTION_REQUIRED"
+  //     )
+  //   );
+
+  //   return !isRouteDone && !isRouteFailed && multisigRouteStarted;
+  // };
+
+  useEffect(() => {
+    (async () => {
+      const isSafeConnector = await getIsSafeConnector(
+        account.connector as Connector
+      );
+      if (isSafeConnector) {
+        setIsSafeConnector(isSafeConnector);
+      }
+    })();
+  }, [account.connector]);
+
+  return {
+    shouldBatchTransactions: isSafeConnector,
+    sendBatchTransaction,
+    getMultisigTransactionDetails,
+  };
+};

@@ -1,0 +1,21 @@
+:root {
+  color-scheme: light dark;
+  font-family: "DM Sans", Inter, system-ui, Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #f4f4f4;
+  color: #121212;
+  margin: 24px 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #f4f4f4;
+  }
+}
