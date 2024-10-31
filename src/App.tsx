@@ -31,7 +31,7 @@ export function App() {
     }),
     [
       // getMultisigTransactionDetails,
-      // isDarkMode,
+      isDarkMode,
       // sendBatchTransaction,
       // shouldBatchTransactions,
     ]
