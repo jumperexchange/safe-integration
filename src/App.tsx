@@ -1,18 +1,12 @@
-import { Appearance, LiFiWidget, WidgetConfig } from "@lifi/widget";
-import { usePrefersColorScheme } from "./hooks/usePrefersColorScheme";
+import { LiFiWidget, WidgetConfig } from "@lifi/widget";
+import { useColorScheme } from "./hooks/useColorScheme";
 import { useMemo } from "react";
 import { darkTheme } from "./themes/dark";
 import { lightTheme } from "./themes/light";
-import { useQueryParams } from "./hooks/useQueryParams";
 
 export function App() {
-  const { isDarkMode } = usePrefersColorScheme();
-  const queryParams = useQueryParams();
+  const colorScheme = useColorScheme();
   const config = useMemo((): Partial<WidgetConfig> => {
-    const themeQueryParam = queryParams.get("theme");
-    const useDarkMode = themeQueryParam
-      ? themeQueryParam === "dark"
-      : isDarkMode;
     return {
       variant: "wide",
       sdkConfig: {
@@ -20,10 +14,10 @@ export function App() {
           allowSwitchChain: false,
         },
       },
-      ...(useDarkMode ? darkTheme : lightTheme),
-      appearance: themeQueryParam ? (themeQueryParam as Appearance) : "auto",
+      ...(colorScheme === "dark" ? darkTheme : lightTheme),
+      appearance: colorScheme,
     };
-  }, [isDarkMode, queryParams]);
+  }, [colorScheme]);
   return (
     <main className="main">
       <LiFiWidget integrator="safe-app" config={config} />
