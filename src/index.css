@@ -8,9 +8,24 @@
 }
 
 body {
+  margin: 24px 16px;
+}
+
+body.light {
   background-color: #f4f4f4;
   color: #121212;
-  margin: 24px 16px;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #f4f4f4;
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #f4f4f4;
+    color: #121212;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
