@@ -9,7 +9,6 @@ export function App() {
   const config = useMemo(
     (): Partial<WidgetConfig> => ({
       variant: "wide",
-      // feeConfig: feeConfig,
       sdkConfig: {
         routeOptions: {
           allowSwitchChain: false,
