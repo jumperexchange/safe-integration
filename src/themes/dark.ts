@@ -8,7 +8,11 @@ export const darkTheme: Partial<WidgetConfig> = {
     },
     container: {
       border: "1px solid rgba(255, 255, 255, 0.12)",
-      borderRadius: "16px",
+      borderRadius: "6px",
+    },
+    shape: {
+      borderRadius: 6,
+      borderRadiusSecondary: 6,
     },
     typography: {
       fontFamily: '"DM Sans", Inter, system-ui, Helvetica, Arial, sans-serif',
