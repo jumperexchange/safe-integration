@@ -1,4 +1,4 @@
-import { LiFiWidget, WidgetConfig } from "@lifi/widget";
+import { ChainId, HiddenUI, LiFiWidget, WidgetConfig } from "@lifi/widget";
 import { useColorScheme } from "./hooks/useColorScheme";
 import { useMemo } from "react";
 import { darkTheme } from "./themes/dark";
@@ -16,6 +16,12 @@ export function App() {
       },
       ...(colorScheme === "dark" ? darkTheme : lightTheme),
       appearance: colorScheme,
+      hiddenUI: [HiddenUI.WalletMenu],
+      chains: {
+        from: {
+          deny: [ChainId.SOL, ChainId.BTC],
+        },
+      },
     };
   }, [colorScheme]);
   return (
