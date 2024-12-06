@@ -22,6 +22,9 @@ export function App() {
           deny: [ChainId.SOL, ChainId.BTC],
         },
       },
+      bridges: {
+        deny: ["cbridge", "celerim", "stargateV2", "stargateV2Bus"],
+      },
     };
   }, [colorScheme]);
   return (
