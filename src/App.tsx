@@ -23,7 +23,15 @@ export function App() {
         },
       },
       bridges: {
-        deny: ["cbridge", "celerim", "stargateV2", "stargateV2Bus"],
+        deny: [
+          "cbridge",
+          "celerim",
+          "stargateV2",
+          "stargateV2Bus",
+          "mayan",
+          "mayanWH",
+          "mayanMCTP",
+        ],
       },
     };
   }, [colorScheme]);
