@@ -1,11 +1,14 @@
 import { ChainId, HiddenUI, LiFiWidget, WidgetConfig } from "@lifi/widget";
 import { useColorScheme } from "./hooks/useColorScheme";
+import { useAllowDenyLists } from "./hooks/useAllowDenyLists";
 import { useMemo } from "react";
 import { darkTheme } from "./themes/dark";
 import { lightTheme } from "./themes/light";
 
 export function App() {
   const colorScheme = useColorScheme();
+  const allowDenyLists = useAllowDenyLists();
+
   const config = useMemo((): Partial<WidgetConfig> => {
     return {
       variant: "wide",
@@ -18,11 +21,13 @@ export function App() {
       appearance: colorScheme,
       hiddenUI: [HiddenUI.WalletMenu],
       chains: {
+        deny: allowDenyLists.chains?.deny,
+        allow: allowDenyLists.chains?.allow,
         from: {
           deny: [ChainId.SOL, ChainId.BTC],
         },
       },
-      bridges: {
+      bridges: allowDenyLists.bridges ?? {
         deny: [
           "cbridge",
           "celerim",
@@ -33,8 +38,10 @@ export function App() {
           "mayanMCTP",
         ],
       },
+      exchanges: allowDenyLists.exchanges,
     };
-  }, [colorScheme]);
+  }, [colorScheme, allowDenyLists]);
+
   return (
     <main className="main">
       <LiFiWidget integrator="safe-app" config={config} />
