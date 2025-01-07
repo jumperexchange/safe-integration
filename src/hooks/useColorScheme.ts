@@ -1,11 +1,11 @@
 import { useState, useEffect, useLayoutEffect } from "react";
-import { useQueryParams } from "./useQueryParams";
 import { Appearance } from "@lifi/widget";
+import { useQueryParams } from "./useQueryParams";
 
 export function useColorScheme(): Appearance {
-  const queryParams = useQueryParams();
+  const searchParams = useQueryParams();
   const [colorScheme, setColorScheme] = useState<Appearance>(() => {
-    const themeQueryParam = queryParams.get("theme");
+    const themeQueryParam = searchParams.get("theme");
     if (themeQueryParam === "dark" || themeQueryParam === "light") {
       return themeQueryParam;
     }
@@ -20,7 +20,7 @@ export function useColorScheme(): Appearance {
   }, [colorScheme]);
 
   useEffect(() => {
-    const themeQueryParam = queryParams.get("theme");
+    const themeQueryParam = searchParams.get("theme");
 
     if (themeQueryParam === "dark" || themeQueryParam === "light") {
       setColorScheme(themeQueryParam);
@@ -48,7 +48,7 @@ export function useColorScheme(): Appearance {
       mediaQuery.removeEventListener("change", handleMediaChange);
       window.removeEventListener("message", handleMessage);
     };
-  }, [queryParams]);
+  }, [searchParams]);
 
   return colorScheme;
 }

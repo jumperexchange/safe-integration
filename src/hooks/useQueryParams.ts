@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
 export function useQueryParams() {
-  const location = useLocation();
   const [queryParams, setQueryParams] = useState(
-    () => new URLSearchParams(location.search)
+    () => new URLSearchParams(window.location.search)
   );
 
   useEffect(() => {
-    setQueryParams(new URLSearchParams(location.search));
-  }, [location.search]);
+    const handleUrlChange = () => {
+      setQueryParams(new URLSearchParams(window.location.search));
+    };
+
+    window.addEventListener("popstate", handleUrlChange);
+
+    return () => {
+      window.removeEventListener("popstate", handleUrlChange);
+    };
+  }, []);
 
   return queryParams;
 }
