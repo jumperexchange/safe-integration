@@ -9,6 +9,7 @@ export const lightTheme: Partial<WidgetConfig> = {
     container: {
       border: "1px solid rgb(234, 234, 234)",
       borderRadius: "6px",
+      maxHeight: 720,
     },
     shape: {
       borderRadius: 6,

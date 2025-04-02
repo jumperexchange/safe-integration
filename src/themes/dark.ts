@@ -9,6 +9,7 @@ export const darkTheme: Partial<WidgetConfig> = {
     container: {
       border: "1px solid rgba(255, 255, 255, 0.12)",
       borderRadius: "6px",
+      maxHeight: 720,
     },
     shape: {
       borderRadius: 6,
