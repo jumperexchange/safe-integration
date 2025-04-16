@@ -1,9 +1,7 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { Appearance } from "@lifi/widget";
-import { useQueryParams } from "./useQueryParams";
 
-export function useColorScheme(): Appearance {
-  const searchParams = useQueryParams();
+export function useColorScheme(searchParams: URLSearchParams): Appearance {
   const [colorScheme, setColorScheme] = useState<Appearance>(() => {
     const themeQueryParam = searchParams.get("theme");
     if (themeQueryParam === "dark" || themeQueryParam === "light") {

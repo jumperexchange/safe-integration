@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useQueryParams } from "./useQueryParams";
 
 interface AllowDenyLists {
   bridges?: {
@@ -16,9 +15,9 @@ interface AllowDenyLists {
   };
 }
 
-export function useAllowDenyLists(): AllowDenyLists {
-  const searchParams = useQueryParams();
-
+export function useAllowDenyLists(
+  searchParams: URLSearchParams
+): AllowDenyLists {
   return useMemo(() => {
     const allowBridges = searchParams
       .get("allowBridges")
