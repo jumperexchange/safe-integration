@@ -4,10 +4,13 @@ import { useAllowDenyLists } from "./hooks/useAllowDenyLists";
 import { useMemo } from "react";
 import { darkTheme } from "./themes/dark";
 import { lightTheme } from "./themes/light";
-
+import { useQueryParams } from "./hooks/useQueryParams";
+import { useDefaultChain } from "./hooks/useDefaultChain";
 export function App() {
-  const colorScheme = useColorScheme();
-  const allowDenyLists = useAllowDenyLists();
+  const searchParams = useQueryParams();
+  const colorScheme = useColorScheme(searchParams);
+  const allowDenyLists = useAllowDenyLists(searchParams);
+  const defaultFromChain = useDefaultChain(searchParams);
 
   const config = useMemo((): Partial<WidgetConfig> => {
     return {
@@ -24,7 +27,11 @@ export function App() {
         deny: allowDenyLists.chains?.deny,
         allow: allowDenyLists.chains?.allow,
         from: {
-          deny: [ChainId.SOL, ChainId.BTC],
+          deny: [ChainId.SOL, ChainId.BTC, ChainId.SUI],
+          ...(defaultFromChain ? { allow: [defaultFromChain] } : {}),
+        },
+        to: {
+          ...(defaultFromChain ? { deny: [defaultFromChain] } : {}),
         },
       },
       bridges: allowDenyLists.bridges ?? {
@@ -39,8 +46,20 @@ export function App() {
         ],
       },
       exchanges: allowDenyLists.exchanges,
+      languageResources: {
+        en: {
+          button: {
+            exchange: "Bridge",
+          },
+          header: {
+            exchange: "Bridge",
+            from: "Bridge from",
+            to: "Bridge to",
+          },
+        },
+      },
     };
-  }, [colorScheme, allowDenyLists]);
+  }, [colorScheme, allowDenyLists, defaultFromChain]);
 
   return (
     <main className="main">
