@@ -10,6 +10,23 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (function () {
+        const themeQueryParam = new URLSearchParams(window.location.search).get(
+          "theme"
+        );
+        if (themeQueryParam === "dark" || themeQueryParam === "light") {
+          document.documentElement.classList.add(themeQueryParam);
+        } else {
+          const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+          ).matches;
+          document.documentElement.classList.add(
+            prefersDark ? "dark" : "light"
+          );
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
