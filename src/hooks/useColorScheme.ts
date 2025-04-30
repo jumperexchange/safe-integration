@@ -13,7 +13,9 @@ export function useColorScheme(searchParams: URLSearchParams): Appearance {
   });
 
   useLayoutEffect(() => {
+    document.documentElement.classList.remove("dark", "light");
     document.body.classList.remove("dark", "light");
+    document.documentElement.classList.add(colorScheme);
     document.body.classList.add(colorScheme);
   }, [colorScheme]);
 
