@@ -7,6 +7,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root.light {
+  background-color: #f4f4f4;
+  color: #121212;
+}
+
+:root.dark {
+  background-color: #121212;
+  color: #f4f4f4;
+}
+
 body {
   margin: 24px 16px;
 }
@@ -19,18 +29,4 @@ body.light {
 body.dark {
   background-color: #121212;
   color: #f4f4f4;
-}
-
-@media (prefers-color-scheme: light) {
-  body {
-    background-color: #f4f4f4;
-    color: #121212;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #121212;
-    color: #f4f4f4;
-  }
 }
