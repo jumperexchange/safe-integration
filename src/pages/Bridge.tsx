@@ -25,6 +25,9 @@ export function Bridge() {
       ...(colorScheme === "dark" ? darkTheme : lightTheme),
       appearance: colorScheme,
       hiddenUI: [HiddenUI.WalletMenu, HiddenUI.Appearance],
+      defaultUI: {
+        transactionDetailsExpanded: true,
+      },
       chains: {
         deny: allowDenyLists.chains?.deny,
         allow: allowDenyLists.chains?.allow,
@@ -65,6 +68,7 @@ export function Bridge() {
         name: "Widget",
         showFeePercentage: true,
       } as never,
+      buildUrl: true,
     };
   }, [colorScheme, allowDenyLists, defaultFromChain]);
 

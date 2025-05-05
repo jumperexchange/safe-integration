@@ -13,7 +13,6 @@ export const darkTheme: Partial<WidgetConfig> = {
         default: "#121312",
         paper: "#1C1C1C",
       },
-      // @ts-expect-error - types
       success: {
         main: "#00B460",
       },

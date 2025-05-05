@@ -13,7 +13,6 @@ export const lightTheme: Partial<WidgetConfig> = {
         default: "#FFFFFF",
         paper: "#F4F4F4",
       },
-      // @ts-expect-error - types
       success: {
         main: "#00B460",
       },

@@ -28,7 +28,11 @@ export function Swap() {
         HiddenUI.WalletMenu,
         HiddenUI.Appearance,
         HiddenUI.ChainSelect,
+        HiddenUI.BridgesSettings,
       ],
+      defaultUI: {
+        transactionDetailsExpanded: true,
+      },
       chains: {
         deny: allowDenyLists.chains?.deny,
         allow: allowDenyLists.chains?.allow,
@@ -68,6 +72,7 @@ export function Swap() {
         name: "Widget",
         showFeePercentage: true,
       } as never,
+      buildUrl: true,
     };
   }, [colorScheme, allowDenyLists, defaultFromChain]);
 
