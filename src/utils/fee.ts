@@ -20,8 +20,10 @@ export async function calculateFee(params: CalculateFeeParams) {
     params.fromToken.chainId
   );
 
+  const fromTokenAddress = params.fromToken.address.toLowerCase();
+
   const isStablecoin = stablecoinTokenAddresses.some(
-    (token) => token.address === params.fromToken.address
+    (token) => token.address.toLowerCase() === fromTokenAddress
   );
 
   if (isStablecoin) {
