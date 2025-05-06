@@ -10,8 +10,8 @@ export const darkTheme: Partial<WidgetConfig> = {
         secondary: "#A1A3A7",
       },
       background: {
-        default: "#121312",
-        paper: "#1C1C1C",
+        default: "#1C1C1C",
+        paper: "#121312",
       },
       success: {
         main: "#00B460",
@@ -25,13 +25,15 @@ export const darkTheme: Partial<WidgetConfig> = {
       info: {
         main: "#5FDDFF",
       },
+      grey: {
+        800: "#1C1C1C",
+      },
       common: {
         black: "#121312",
         white: "#ffffff",
       },
     },
     container: {
-      border: "1px solid rgba(255, 255, 255, 0.12)",
       borderRadius: "6px",
       maxHeight: 720,
     },

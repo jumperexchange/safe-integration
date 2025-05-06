@@ -31,7 +31,6 @@ export const lightTheme: Partial<WidgetConfig> = {
       },
     },
     container: {
-      border: "1px solid #dcdee0",
       borderRadius: "6px",
       maxHeight: 720,
     },
