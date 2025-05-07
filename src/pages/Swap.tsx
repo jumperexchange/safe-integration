@@ -73,6 +73,7 @@ export function Swap() {
         showFeePercentage: true,
       } as never,
       buildUrl: true,
+      keyPrefix: "swap",
     };
   }, [colorScheme, allowDenyLists, defaultFromChain]);
 

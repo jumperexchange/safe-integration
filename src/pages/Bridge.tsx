@@ -69,6 +69,7 @@ export function Bridge() {
         showFeePercentage: true,
       } as never,
       buildUrl: true,
+      keyPrefix: "bridge",
     };
   }, [colorScheme, allowDenyLists, defaultFromChain]);
 
