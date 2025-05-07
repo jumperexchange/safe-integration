@@ -16,17 +16,26 @@ export async function calculateFee(params: CalculateFeeParams) {
     params.fromToken.decimals
   );
 
-  const stablecoinTokenAddresses = getStablecoinTokenAddresses(
+  const sourceStablecoinTokenAddresses = getStablecoinTokenAddresses(
     params.fromToken.chainId
   );
 
-  const fromTokenAddress = params.fromToken.address.toLowerCase();
+  const destinationStablecoinTokenAddresses = getStablecoinTokenAddresses(
+    params.toToken.chainId
+  );
 
-  const isStablecoin = stablecoinTokenAddresses.some(
+  const fromTokenAddress = params.fromToken.address.toLowerCase();
+  const toTokenAddress = params.toToken.address.toLowerCase();
+
+  const isSourceStablecoin = sourceStablecoinTokenAddresses.some(
     (token) => token.address.toLowerCase() === fromTokenAddress
   );
 
-  if (isStablecoin) {
+  const isDestinationStablecoin = destinationStablecoinTokenAddresses.some(
+    (token) => token.address.toLowerCase() === toTokenAddress
+  );
+
+  if (isSourceStablecoin && isDestinationStablecoin) {
     if (amountInUSD <= 100_000) {
       return 0.001; // 0.10%
     } else if (amountInUSD <= 1_000_000) {
