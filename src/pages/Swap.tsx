@@ -29,6 +29,7 @@ export function Swap() {
         HiddenUI.Appearance,
         HiddenUI.ChainSelect,
         HiddenUI.BridgesSettings,
+        HiddenUI.AddressBookConnectedWallets,
       ],
       defaultUI: {
         transactionDetailsExpanded: true,
@@ -64,6 +65,11 @@ export function Swap() {
             exchange: "Swap",
             from: "Swap from",
             to: "Swap to",
+          },
+          info: {
+            message: {
+              accountDeployedMessage: "Your Safe account may not have the same address on other chains. Please double-check before proceeding."
+            }
           },
         },
       },
