@@ -24,7 +24,7 @@ export function Bridge() {
       },
       ...(colorScheme === "dark" ? darkTheme : lightTheme),
       appearance: colorScheme,
-      hiddenUI: [HiddenUI.WalletMenu, HiddenUI.Appearance],
+      hiddenUI: [HiddenUI.WalletMenu, HiddenUI.Appearance, HiddenUI.AddressBookConnectedWallets],
       defaultUI: {
         transactionDetailsExpanded: true,
       },
@@ -61,6 +61,11 @@ export function Bridge() {
             from: "Bridge from",
             to: "Bridge to",
           },
+          info: {
+            message: {
+              accountDeployedMessage: "Your Safe account may not have the same address on other chains. Please double-check before proceeding."
+            }
+          }
         },
       },
       feeConfig: {
