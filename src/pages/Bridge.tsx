@@ -1,4 +1,4 @@
-import { ChainId, HiddenUI, LiFiWidget, WidgetConfig } from "@lifi/widget";
+import { ChainId, HiddenUI, LiFiWidget, RequiredUI, WidgetConfig } from "@lifi/widget";
 import { useColorScheme } from "../hooks/useColorScheme";
 import { useAllowDenyLists } from "../hooks/useAllowDenyLists";
 import { useMemo } from "react";
@@ -28,6 +28,7 @@ export function Bridge() {
       defaultUI: {
         transactionDetailsExpanded: true,
       },
+      requiredUI: [RequiredUI.AccountDeployedMessage],
       chains: {
         deny: allowDenyLists.chains?.deny,
         allow: allowDenyLists.chains?.allow,

@@ -1,4 +1,4 @@
-import { HiddenUI, LiFiWidget, WidgetConfig } from "@lifi/widget";
+import { HiddenUI, LiFiWidget, RequiredUI, WidgetConfig } from "@lifi/widget";
 import { useColorScheme } from "../hooks/useColorScheme";
 import { useAllowDenyLists } from "../hooks/useAllowDenyLists";
 import { useMemo } from "react";
@@ -34,6 +34,7 @@ export function Swap() {
       defaultUI: {
         transactionDetailsExpanded: true,
       },
+      requiredUI: [RequiredUI.AccountDeployedMessage],
       chains: {
         deny: allowDenyLists.chains?.deny,
         allow: allowDenyLists.chains?.allow,
