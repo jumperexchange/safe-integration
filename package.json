@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@lifi/data-types": "^6.14.5",
-    "@lifi/sdk": "^3.7.7",
-    "@lifi/wallet-management": "^3.11.0",
-    "@lifi/widget": "3.23.2-beta.0",
+    "@lifi/sdk": "^3.7.9",
+    "@lifi/wallet-management": "^3.11.1",
+    "@lifi/widget": "3.23.3",
     "@safe-global/safe-apps-sdk": "^9.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
