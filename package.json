@@ -10,29 +10,29 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@lifi/data-types": "^6.14.5",
-    "@lifi/sdk": "^3.7.9",
-    "@lifi/wallet-management": "^3.11.1",
-    "@lifi/widget": "3.23.3",
+    "@lifi/data-types": "^6.28.1",
+    "@lifi/sdk": "^3.9.2",
+    "@lifi/wallet-management": "^3.14.3",
+    "@lifi/widget": "3.27.2",
     "@safe-global/safe-apps-sdk": "^9.1.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.1",
-    "viem": "^2.30.6",
-    "wagmi": "^2.15.4"
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.8.0",
+    "viem": "^2.33.3",
+    "wagmi": "^2.16.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.28.0",
-    "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5",
-    "@vitejs/plugin-react-swc": "^3.10.1",
-    "eslint": "^9.28.0",
+    "@eslint/js": "^9.33.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react-swc": "^4.0.0",
+    "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
-    "globals": "^16.2.0",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.33.1",
-    "vite": "^6.3.5"
+    "globals": "^16.3.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.39.1",
+    "vite": "^7.1.2"
   },
   "pnpm": {
     "overrides": {
