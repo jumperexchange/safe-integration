@@ -1,40 +1,41 @@
-import { WidgetConfig, WidgetThemeComponents } from "@lifi/widget";
+import { WidgetConfig, WidgetThemeComponents } from '@lifi/widget'
 
 export const darkTheme: Partial<WidgetConfig> = {
   theme: {
     palette: {
-      primary: { main: "#12FF80" },
-      secondary: { main: "#A1A3A7" },
+      primary: { main: '#12FF80' },
+      secondary: { main: '#A1A3A7' },
       text: {
-        primary: "#FFFFFF",
-        secondary: "#A1A3A7",
+        primary: '#FFFFFF',
+        secondary: '#A1A3A7',
       },
       background: {
-        default: "#1C1C1C",
-        paper: "#121312",
+        default: '#1C1C1C',
+        paper: '#121312',
       },
       success: {
-        main: "#00B460",
+        main: '#00B460',
       },
       warning: {
-        main: "#FF8061",
+        main: '#FF8061',
       },
       error: {
-        main: "#FF5F72",
+        main: '#FF5F72',
       },
       info: {
-        main: "#5FDDFF",
+        main: '#5FDDFF',
       },
       grey: {
-        800: "#1C1C1C",
+        800: '#1C1C1C',
       },
       common: {
-        black: "#121312",
-        white: "#ffffff",
+        black: '#121312',
+        white: '#ffffff',
       },
     },
     container: {
-      borderRadius: "6px",
+      borderRadius: '6px',
+      height: 'fit-content',
       maxHeight: 720,
     },
     shape: {
@@ -46,8 +47,8 @@ export const darkTheme: Partial<WidgetConfig> = {
     },
     components: {
       MuiCard: {
-        defaultProps: { variant: "filled" },
+        defaultProps: { variant: 'filled' },
       },
     } as unknown as WidgetThemeComponents,
   },
-};
+}

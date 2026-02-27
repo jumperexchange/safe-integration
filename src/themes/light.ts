@@ -1,37 +1,38 @@
-import { WidgetConfig, WidgetThemeComponents } from "@lifi/widget";
+import { WidgetConfig, WidgetThemeComponents } from '@lifi/widget'
 
 export const lightTheme: Partial<WidgetConfig> = {
   theme: {
     palette: {
-      primary: { main: "#121312" },
-      secondary: { main: "#12FF80" },
+      primary: { main: '#121312' },
+      secondary: { main: '#12FF80' },
       text: {
-        primary: "#121312",
-        secondary: "#696969",
+        primary: '#121312',
+        secondary: '#696969',
       },
       background: {
-        default: "#FFFFFF",
-        paper: "#F4F4F4",
+        default: '#FFFFFF',
+        paper: '#F4F4F4',
       },
       success: {
-        main: "#00B460",
+        main: '#00B460',
       },
       warning: {
-        main: "#FF8061",
+        main: '#FF8061',
       },
       error: {
-        main: "#FF5F72",
+        main: '#FF5F72',
       },
       // info: {
       //   main: "#5FDDFF",
       // },
       common: {
-        black: "#121312",
-        white: "#ffffff",
+        black: '#121312',
+        white: '#ffffff',
       },
     },
     container: {
-      borderRadius: "6px",
+      borderRadius: '6px',
+      height: 'fit-content',
       maxHeight: 720,
     },
     shape: {
@@ -43,8 +44,8 @@ export const lightTheme: Partial<WidgetConfig> = {
     },
     components: {
       MuiCard: {
-        defaultProps: { variant: "filled" },
+        defaultProps: { variant: 'filled' },
       },
     } as unknown as WidgetThemeComponents,
   },
-};
+}
